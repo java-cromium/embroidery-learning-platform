@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html class="h-full bg-gray-100">
+<head>
+  <title>Admin Dashboard - Embroidery Learning Platform</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="h-full">
+  <div x-data="{ open: false }">
+    <!-- Off-canvas menu for mobile -->
+    <div x-show="open" class="fixed inset-0 flex z-40 md:hidden" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-600 bg-opacity-75" aria-hidden="true" @click="open = false"></div>
+      
+      <div class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-gray-800">
+        <div class="absolute top-0 right-0 -mr-12 pt-2">
+          <button type="button" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" @click="open = false">
+            <span class="sr-only">Close sidebar</span>
+            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="flex-shrink-0 flex items-center px-4">
+          <img class="h-8 w-auto" src="/images/logo.png" alt="Logo">
+        </div>
+        <div class="mt-5 flex-1 h-0 overflow-y-auto">
+          <nav class="px-2 space-y-1">
+            <%= erb :'admin/shared/nav_items' %>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Static sidebar for desktop -->
+    <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+      <div class="flex-1 flex flex-col min-h-0 bg-gray-800">
+        <div class="flex items-center h-16 flex-shrink-0 px-4 bg-gray-900">
+          <img class="h-8 w-auto" src="/images/logo.png" alt="Logo">
+        </div>
+        <div class="flex-1 flex flex-col overflow-y-auto">
+          <nav class="flex-1 px-2 py-4 space-y-1">
+            <%= erb :'admin/shared/nav_items' %>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="md:pl-64 flex flex-col">
+      <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow">
+        <button type="button" class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pink-500 md:hidden" @click="open = true">
+          <span class="sr-only">Open sidebar</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+          </svg>
+        </button>
+        <div class="flex-1 px-4 flex justify-between">
+          <div class="flex-1 flex">
+            <h1 class="text-2xl font-semibold text-gray-900 my-auto">
+              <%= @page_title || 'Admin Dashboard' %>
+            </h1>
+          </div>
+          <div class="ml-4 flex items-center md:ml-6">
+            <!-- Profile dropdown -->
+            <div class="ml-3 relative" x-data="{ open: false }">
+              <div>
+                <button type="button" class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500" @click="open = !open">
+                  <span class="sr-only">Open user menu</span>
+                  <img class="h-8 w-8 rounded-full" src="<%= current_user.avatar_url || '/images/default-avatar.png' %>" alt="">
+                </button>
+              </div>
+              <div x-show="open" @click.away="open = false" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <a href="/admin/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+                <a href="/admin/settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                <form action="/logout" method="post" class="block">
+                  <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <main class="flex-1">
+        <div class="py-6">
+          <!-- Flash Messages -->
+          <% if flash.any? %>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+              <% flash.each do |type, message| %>
+                <div class="rounded-md <%= type == 'error' ? 'bg-red-50' : 'bg-green-50' %> p-4 mb-4">
+                  <div class="flex">
+                    <div class="flex-shrink-0">
+                      <% if type == 'error' %>
+                        <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                      <% else %>
+                        <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                      <% end %>
+                    </div>
+                    <div class="ml-3">
+                      <p class="text-sm font-medium <%= type == 'error' ? 'text-red-800' : 'text-green-800' %>">
+                        <%= message %>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
+          <!-- Page Content -->
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <%= yield %>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

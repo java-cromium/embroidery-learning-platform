@@ -1,0 +1,116 @@
+<div class="mt-4" data-controller="filter-presets" data-resource-type="<%= resource_type %>">
+  <!-- Presets List -->
+  <div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+          <h3 class="text-lg font-medium text-gray-900">Saved Filters</h3>
+          <p class="mt-2 text-sm text-gray-500">
+            Apply saved filter combinations to quickly find what you're looking for.
+          </p>
+        </div>
+        <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+          <button
+            type="button"
+            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+            data-action="click->filter-presets#showSaveModal"
+          >
+            Save Current Filters
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-6 divide-y divide-gray-200" data-filter-presets-target="presetList">
+        <!-- Presets will be dynamically inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Save Preset Modal -->
+  <div class="fixed z-10 inset-0 overflow-y-auto hidden" data-filter-presets-target="saveModal">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+      <div class="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+        <div>
+          <div class="mt-3 text-center sm:mt-5">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              Save Filter Preset
+            </h3>
+            <div class="mt-4">
+              <div class="space-y-4">
+                <div>
+                  <label for="preset-name" class="block text-sm font-medium text-gray-700">
+                    Name
+                  </label>
+                  <div class="mt-1">
+                    <input
+                      type="text"
+                      name="preset-name"
+                      id="preset-name"
+                      class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      data-filter-presets-target="presetName"
+                      placeholder="e.g., Active Premium Users"
+                    >
+                  </div>
+                </div>
+
+                <div>
+                  <label for="preset-description" class="block text-sm font-medium text-gray-700">
+                    Description (optional)
+                  </label>
+                  <div class="mt-1">
+                    <textarea
+                      id="preset-description"
+                      name="preset-description"
+                      rows="3"
+                      class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      data-filter-presets-target="presetDescription"
+                      placeholder="Describe what this filter combination is used for"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <%= render_if_allowed(resource_type.to_sym, :manage_presets) do %>
+                  <div class="relative flex items-start">
+                    <div class="flex items-center h-5">
+                      <input
+                        id="preset-global"
+                        name="preset-global"
+                        type="checkbox"
+                        class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded"
+                        data-filter-presets-target="globalCheckbox"
+                      >
+                    </div>
+                    <div class="ml-3 text-sm">
+                      <label for="preset-global" class="font-medium text-gray-700">
+                        Make Global
+                      </label>
+                      <p class="text-gray-500">Share this preset with all users</p>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+          <button
+            type="button"
+            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-pink-600 text-base font-medium text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:col-start-2 sm:text-sm"
+            data-action="click->filter-presets#savePreset"
+          >
+            Save Preset
+          </button>
+          <button
+            type="button"
+            class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:mt-0 sm:col-start-1 sm:text-sm"
+            onclick="this.closest('[data-filter-presets-target=saveModal]').classList.add('hidden')"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

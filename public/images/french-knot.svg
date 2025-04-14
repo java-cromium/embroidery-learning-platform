@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="400" height="200" fill="white"/>
+    
+    <!-- French Knot Demonstration -->
+    <g transform="translate(100, 50)">
+        <!-- Thread Path -->
+        <path d="M 100,50 C 100,30 120,30 120,50 C 120,70 100,70 100,50" 
+              fill="#F7F9F2" stroke="#808000" stroke-width="3"/>
+        
+        <!-- Center Point -->
+        <circle cx="110" cy="50" r="6" fill="#808000"/>
+        
+        <!-- Thread End -->
+        <line x1="100" y1="50" x2="80" y2="70" stroke="#808000" stroke-width="2"/>
+        
+        <!-- Direction Arrows -->
+        <g stroke="#2D3436" stroke-width="2" fill="none">
+            <path d="M 140,40 C 130,40 130,60 140,60"/>
+            <path d="M 135,35 L 140,40 L 145,35"/>
+        </g>
+    </g>
+    
+    <!-- Title -->
+    <text x="200" y="150" text-anchor="middle" font-family="Arial" font-size="16" fill="#2D3436">French Knot</text>
+</svg>

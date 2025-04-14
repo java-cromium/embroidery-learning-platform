@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" version="1.1" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+ <rect width="800" height="400" fill="#f5e6d3"/>
+ <!-- Bayeux Tapestry inspired design -->
+ <g transform="translate(50,50)">
+   <!-- Border design -->
+   <rect x="0" y="0" width="700" height="300" fill="none" stroke="#8b4513" stroke-width="4"/>
+   <!-- Stylized medieval figures -->
+   <g transform="translate(100,100)" stroke="#8b4513" stroke-width="3" fill="none">
+     <!-- Knight figure -->
+     <path d="M0,0 l20,-20 l20,20 l-20,-60 l-20,60 z"/>
+     <circle cx="20" cy="-70" r="10"/>
+     <!-- Horse figure -->
+     <path d="M60,-20 c30,0 40,20 60,20 c-20,20 -40,20 -60,20 c-20,0 -30,-20 -30,-20 s10,-20 30,-20z"/>
+   </g>
+   <!-- Decorative patterns -->
+   <g transform="translate(300,150)" fill="#8b4513">
+     <path d="M0,0 l20,0 l-10,20 z" />
+     <path d="M40,0 l20,0 l-10,20 z" />
+     <path d="M80,0 l20,0 l-10,20 z" />
+   </g>
+ </g>
+</svg>

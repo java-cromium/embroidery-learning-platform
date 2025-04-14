@@ -1,0 +1,71 @@
+<div class="space-y-6">
+  <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+      <div class="md:col-span-1">
+        <h3 class="text-lg font-medium leading-6 text-gray-900"><%= @role.new_record? ? 'New Role' : 'Edit Role' %></h3>
+        <p class="mt-1 text-sm text-gray-500">
+          Define the role's name, description, and permissions.
+        </p>
+      </div>
+      <div class="mt-5 md:mt-0 md:col-span-2">
+        <form action="<%= @role.new_record? ? '/admin/roles' : "/admin/roles/#{@role.id}" %>" method="post">
+          <% unless @role.new_record? %>
+            <input type="hidden" name="_method" value="patch">
+          <% end %>
+
+          <div class="grid grid-cols-6 gap-6">
+            <div class="col-span-6 sm:col-span-4">
+              <label for="name" class="block text-sm font-medium text-gray-700">Role Name</label>
+              <input type="text" name="admin_role[name]" id="name" value="<%= @role.name %>" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+            </div>
+
+            <div class="col-span-6">
+              <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+              <textarea name="admin_role[description]" id="description" rows="3" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"><%= @role.description %></textarea>
+            </div>
+
+            <div class="col-span-6">
+              <h4 class="text-sm font-medium text-gray-900 mb-4">Permissions</h4>
+              
+              <% AdminRole::PERMISSIONS.each do |resource, actions| %>
+                <fieldset class="mb-6">
+                  <legend class="text-sm font-medium text-gray-700 mb-2"><%= resource.to_s.titleize %></legend>
+                  <div class="space-y-3">
+                    <% actions.each do |action, description| %>
+                      <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                          <input
+                            id="permission_<%= resource %>_<%= action %>"
+                            name="admin_role[permissions][<%= resource %>][]"
+                            type="checkbox"
+                            value="<%= action %>"
+                            <%= @role.permissions.dig(resource.to_s, action.to_s) ? 'checked' : '' %>
+                            class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded"
+                          >
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <label for="permission_<%= resource %>_<%= action %>" class="font-medium text-gray-700"><%= description %></label>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </fieldset>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <div class="flex justify-end">
+              <a href="/admin/roles" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+                Cancel
+              </a>
+              <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+                <%= @role.new_record? ? 'Create Role' : 'Update Role' %>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

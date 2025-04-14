@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+ <rect width="200" height="200" fill="#f8f9fa"/>
+ <!-- Guide line -->
+ <path d="M40 100 Q100 80 160 100" fill="none" stroke="#e5e7eb" stroke-dasharray="4" stroke-width="1"/>
+ <!-- Stem stitch -->
+ <g fill="none" stroke="#4f772d">
+   <path d="M40 100 Q55 95 70 97" stroke-width="3"/>
+   <path d="M60 97 Q75 92 90 94" stroke-width="3"/>
+   <path d="M80 94 Q95 89 110 91" stroke-width="3"/>
+   <path d="M100 91 Q115 86 130 88" stroke-width="3"/>
+   <path d="M120 88 Q135 83 150 85" stroke-width="3"/>
+   <path d="M140 85 Q155 80 160 82" stroke-width="3"/>
+ </g>
+ <!-- Stitch points -->
+ <g fill="#4f772d">
+   <circle cx="40" cy="100" r="2"/>
+   <circle cx="70" cy="97" r="2"/>
+   <circle cx="90" cy="94" r="2"/>
+   <circle cx="110" cy="91" r="2"/>
+   <circle cx="130" cy="88" r="2"/>
+   <circle cx="150" cy="85" r="2"/>
+   <circle cx="160" cy="82" r="2"/>
+ </g>
+</svg>

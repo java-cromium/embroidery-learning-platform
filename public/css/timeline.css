@@ -1,0 +1,112 @@
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #4f772d;
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    display: flex;
+    justify-content: flex-end;
+    padding: 2rem 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: all 0.5s ease;
+}
+
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+    transform: translateX(100px);
+}
+
+.timeline-item.timeline-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.timeline-content {
+    width: 45%;
+    padding: 0 20px;
+    position: relative;
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 2px;
+    background: #4f772d;
+}
+
+.timeline-item:nth-child(odd) .timeline-content::before {
+    right: -20px;
+}
+
+.timeline-item:nth-child(even) .timeline-content::before {
+    left: -20px;
+}
+
+.timeline-date {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 70px;
+    text-align: center;
+    color: #4f772d;
+    font-weight: bold;
+}
+
+.timeline-item:nth-child(odd) .timeline-date {
+    right: -100px;
+}
+
+.timeline-item:nth-child(even) .timeline-date {
+    left: -100px;
+}
+
+.timeline-image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+.timeline-nav {
+    position: sticky;
+    top: 1rem;
+    z-index: 10;
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.timeline-nav-btn {
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    border: none;
+    background: #4f772d;
+    color: white;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.timeline-nav-btn:hover {
+    background: #3d5a23;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40" height="40" version="1.1" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+ <!-- Needle -->
+ <g transform="rotate(-45, 20, 20)">
+   <rect x="8" y="19" width="24" height="2" rx="1" fill="#4f772d"/>
+   <!-- Needle Eye -->
+   <circle cx="29" cy="20" r="1.5" fill="#f8f9fa" stroke="#4f772d"/>
+ </g>
+ <!-- Thread -->
+ <path d="M 12,28 C 15,25 18,28 20,25 S 25,22 28,25" 
+       fill="none" 
+       stroke="#4f772d" 
+       stroke-width="2"
+       stroke-linecap="round"/>
+</svg>

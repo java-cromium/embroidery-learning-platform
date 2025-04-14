@@ -1,0 +1,127 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Breadcrumbs -->
+  <nav class="flex py-4" aria-label="Breadcrumb">
+    <ol class="flex items-center space-x-4">
+      <li>
+        <div>
+          <a href="/history" class="text-gray-400 hover:text-gray-500">
+            <svg class="flex-shrink-0 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+            </svg>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+          </svg>
+          <a href="/history/periods/<%= @period.id %>" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
+            <%= @period.name %>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+          </svg>
+          <span class="ml-4 text-sm font-medium text-gray-500">
+            <%= @artifact.name %>
+          </span>
+        </div>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="mt-8">
+    <div class="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
+      <!-- Image gallery -->
+      <div class="flex flex-col-reverse">
+        <div class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden">
+          <img src="<%= @artifact.image_url %>" alt="<%= @artifact.name %>" class="object-center object-cover">
+        </div>
+      </div>
+
+      <!-- Artifact info -->
+      <div class="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
+        <h1 class="text-3xl font-extrabold tracking-tight text-gray-900"><%= @artifact.name %></h1>
+
+        <div class="mt-3">
+          <h2 class="sr-only">Artifact information</h2>
+          <p class="text-3xl text-gray-900"><%= @artifact.location %></p>
+        </div>
+
+        <div class="mt-6">
+          <h3 class="sr-only">Description</h3>
+          <div class="text-base text-gray-700 space-y-6">
+            <p><%= @artifact.description %></p>
+          </div>
+        </div>
+
+        <div class="mt-8 border-t border-gray-200 pt-8">
+          <h2 class="text-sm font-medium text-gray-900">Details</h2>
+
+          <div class="mt-4 prose prose-sm text-gray-500">
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+              <% if @artifact.materials.any? %>
+                <div>
+                  <dt class="font-medium text-gray-900">Materials</dt>
+                  <dd class="mt-2">
+                    <ul class="list-disc pl-4">
+                      <% @artifact.materials.each do |material| %>
+                        <li><%= material %></li>
+                      <% end %>
+                    </ul>
+                  </dd>
+                </div>
+              <% end %>
+
+              <% if @artifact.techniques_used.any? %>
+                <div>
+                  <dt class="font-medium text-gray-900">Techniques Used</dt>
+                  <dd class="mt-2">
+                    <ul class="list-disc pl-4">
+                      <% @artifact.techniques_used.each do |technique| %>
+                        <li><%= technique %></li>
+                      <% end %>
+                    </ul>
+                  </dd>
+                </div>
+              <% end %>
+
+              <% if @artifact.dimensions %>
+                <div>
+                  <dt class="font-medium text-gray-900">Dimensions</dt>
+                  <dd class="mt-2"><%= @artifact.dimensions %></dd>
+                </div>
+              <% end %>
+
+              <% if @artifact.dating_method %>
+                <div>
+                  <dt class="font-medium text-gray-900">Dating Method</dt>
+                  <dd class="mt-2"><%= @artifact.dating_method %></dd>
+                </div>
+              <% end %>
+
+              <% if @artifact.conservation_status %>
+                <div>
+                  <dt class="font-medium text-gray-900">Conservation Status</dt>
+                  <dd class="mt-2"><%= @artifact.conservation_status %></dd>
+                </div>
+              <% end %>
+            </dl>
+          </div>
+        </div>
+
+        <div class="mt-8 border-t border-gray-200 pt-8">
+          <h2 class="text-sm font-medium text-gray-900">Historical Context</h2>
+          <div class="mt-4 prose prose-sm text-gray-500">
+            <p>This artifact belongs to the <%= @period.name %> period (<%= @period.year_range %>). 
+            During this time, <%= @period.description %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

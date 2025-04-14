@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+ <rect width="200" height="200" fill="#f8f9fa"/>
+ <!-- Guide line -->
+ <path d="M40 100h120" fill="none" stroke="#e5e7eb" stroke-dasharray="4" stroke-width="1"/>
+ <!-- Back stitch -->
+ <g fill="none" stroke="#4f772d" stroke-width="3">
+   <path d="M40 100l20 0"/>
+   <path d="M60 100l20 0"/>
+   <path d="M80 100l20 0"/>
+   <path d="M100 100l20 0"/>
+   <path d="M120 100l20 0"/>
+   <path d="M140 100l20 0"/>
+ </g>
+ <!-- Stitch points and numbers -->
+ <g fill="#4f772d">
+   <circle cx="40" cy="100" r="2"/>
+   <circle cx="60" cy="100" r="2"/>
+   <circle cx="80" cy="100" r="2"/>
+   <circle cx="100" cy="100" r="2"/>
+   <circle cx="120" cy="100" r="2"/>
+   <circle cx="140" cy="100" r="2"/>
+   <circle cx="160" cy="100" r="2"/>
+ </g>
+ <!-- Arrows showing direction -->
+ <g fill="none" stroke="#6b7280" stroke-width="1">
+   <path d="M50 95l-5 5l5 5" marker-end=""/>
+   <path d="M70 95l-5 5l5 5" marker-end=""/>
+   <path d="M90 95l-5 5l5 5" marker-end=""/>
+   <path d="M110 95l-5 5l5 5" marker-end=""/>
+   <path d="M130 95l-5 5l5 5" marker-end=""/>
+   <path d="M150 95l-5 5l5 5" marker-end=""/>
+ </g>
+</svg>

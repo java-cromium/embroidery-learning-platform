@@ -1,0 +1,43 @@
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-gray-900 mb-8">Our Courses</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Sample courses - replace with dynamic content later -->
+        <% courses = [
+            {
+                title: "Beginner's Embroidery",
+                description: "Learn the fundamental stitches and techniques of embroidery.",
+                level: "Beginner",
+                duration: "4 weeks"
+            },
+            {
+                title: "Advanced Floral Patterns",
+                description: "Master complex floral designs and advanced color theory.",
+                level: "Advanced",
+                duration: "6 weeks"
+            },
+            {
+                title: "Traditional Techniques",
+                description: "Explore historical embroidery methods from around the world.",
+                level: "Intermediate",
+                duration: "8 weeks"
+            }
+        ] %>
+
+        <% courses.each do |course| %>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2"><%= course[:title] %></h3>
+                    <p class="text-gray-600 mb-4"><%= course[:description] %></p>
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <span class="mr-4">Level: <%= course[:level] %></span>
+                        <span>Duration: <%= course[:duration] %></span>
+                    </div>
+                    <a href="#" class="inline-block bg-olive-600 text-white px-4 py-2 rounded hover:bg-olive-700 transition duration-300">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

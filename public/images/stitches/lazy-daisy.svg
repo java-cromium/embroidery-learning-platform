@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+ <rect width="200" height="200" fill="#f8f9fa"/>
+ <!-- Center point -->
+ <circle cx="100" cy="100" r="3" fill="#4f772d"/>
+ <!-- Lazy daisy petals -->
+ <g fill="none" stroke="#4f772d" stroke-width="2">
+   <!-- Top petal -->
+   <path d="M100 100 C100 70 80 60 100 50 C120 60 100 70 100 100" stroke-width="3"/>
+   <line x1="100" y1="50" x2="100" y2="55" stroke="#6b7280"/>
+   <!-- Right top petal -->
+   <path d="M100 100 C130 90 140 70 150 85 C140 100 120 95 100 100" stroke-width="3"/>
+   <line x1="150" y1="85" x2="146" y2="87" stroke="#6b7280"/>
+   <!-- Right bottom petal -->
+   <path d="M100 100 C130 110 140 130 150 115 C140 100 120 105 100 100" stroke-width="3"/>
+   <line x1="150" y1="115" x2="146" y2="113" stroke="#6b7280"/>
+   <!-- Left top petal -->
+   <path d="M100 100 C70 90 60 70 50 85 C60 100 80 95 100 100" stroke-width="3"/>
+   <line x1="50" y1="85" x2="54" y2="87" stroke="#6b7280"/>
+   <!-- Left bottom petal -->
+   <path d="M100 100 C70 110 60 130 50 115 C60 100 80 105 100 100" stroke-width="3"/>
+   <line x1="50" y1="115" x2="54" y2="113" stroke="#6b7280"/>
+   <!-- Bottom petal -->
+   <path d="M100 100 C100 130 80 140 100 150 C120 140 100 130 100 100" stroke-width="3"/>
+   <line x1="100" y1="150" x2="100" y2="145" stroke="#6b7280"/>
+ </g>
+</svg>

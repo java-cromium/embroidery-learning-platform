@@ -1,0 +1,79 @@
+<div class="space-y-6 sm:space-y-5">
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <label for="name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+      Plan Name
+    </label>
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <input type="text" name="name" id="name" value="<%= @plan.name %>" class="max-w-lg block w-full shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+    </div>
+  </div>
+
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <label for="price" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+      Price
+    </label>
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <div class="relative rounded-md shadow-sm max-w-xs">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <span class="text-gray-500 sm:text-sm">$</span>
+        </div>
+        <input type="number" name="price" id="price" step="0.01" value="<%= @plan.price_cents / 100.0 %>" class="focus:ring-pink-500 focus:border-pink-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md">
+      </div>
+    </div>
+  </div>
+
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <label for="billing_interval" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+      Billing Interval
+    </label>
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <select id="billing_interval" name="billing_interval" class="max-w-lg block focus:ring-pink-500 focus:border-pink-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+        <option value="monthly" <%= @plan.billing_interval == 'monthly' ? 'selected' : '' %>>Monthly</option>
+        <option value="yearly" <%= @plan.billing_interval == 'yearly' ? 'selected' : '' %>>Yearly</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <label for="features" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+      Features (one per line)
+    </label>
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <textarea id="features" name="features" rows="5" class="max-w-lg shadow-sm block w-full focus:ring-pink-500 focus:border-pink-500 sm:text-sm border border-gray-300 rounded-md"><%= @plan.feature_list.join("\n") %></textarea>
+      <p class="mt-2 text-sm text-gray-500">List each feature on a new line.</p>
+    </div>
+  </div>
+
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <label for="stripe_price_id" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+      Stripe Price ID
+    </label>
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <input type="text" name="stripe_price_id" id="stripe_price_id" value="<%= @plan.stripe_price_id %>" class="max-w-lg block w-full shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+      <p class="mt-2 text-sm text-gray-500">The price ID from your Stripe dashboard</p>
+    </div>
+  </div>
+
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <label for="active" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+      Status
+    </label>
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <select id="active" name="active" class="max-w-lg block focus:ring-pink-500 focus:border-pink-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+        <option value="true" <%= @plan.active? ? 'selected' : '' %>>Active</option>
+        <option value="false" <%= !@plan.active? ? 'selected' : '' %>>Inactive</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="pt-5">
+  <div class="flex justify-end">
+    <a href="/admin/subscriptions" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+      Cancel
+    </a>
+    <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+      <%= @plan.new_record? ? 'Create Plan' : 'Update Plan' %>
+    </button>
+  </div>
+</div>

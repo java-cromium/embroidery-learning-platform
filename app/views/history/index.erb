@@ -1,0 +1,146 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Hero Section -->
+  <div class="text-center py-16 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+      The History of Embroidery
+    </h1>
+    <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">
+      Explore the rich history of embroidery across different cultures and time periods
+    </p>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="border-b border-gray-200">
+    <nav class="-mb-px flex space-x-8" aria-label="History navigation">
+      <a href="#timeline" class="border-pink-500 text-pink-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+        Timeline
+      </a>
+      <a href="/history/map" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+        Interactive Map
+      </a>
+      <a href="#techniques" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+        Techniques
+      </a>
+    </nav>
+  </div>
+
+  <!-- Timeline Section -->
+  <div id="timeline" class="py-16">
+    <div class="relative">
+      <!-- Vertical Line -->
+      <div class="absolute h-full w-0.5 bg-gray-200 left-1/2 transform -translate-x-1/2"></div>
+
+      <!-- Timeline Items -->
+      <% @periods.each_with_index do |period, index| %>
+        <div class="relative mb-16">
+          <!-- Era Label -->
+          <% if index == 0 || @periods[index - 1].era != period.era %>
+            <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-12">
+              <span class="inline-flex items-center px-4 py-1 rounded-full text-sm font-medium bg-pink-100 text-pink-800">
+                <%= period.era&.capitalize %>
+              </span>
+            </div>
+          <% end %>
+
+          <!-- Timeline Item -->
+          <div class="flex items-center justify-center">
+            <div class="w-5/12 pr-8 text-right">
+              <h3 class="text-lg font-medium text-gray-900">
+                <%= period.name %>
+              </h3>
+              <p class="mt-1 text-sm text-gray-500">
+                <%= period.year_range %>
+              </p>
+            </div>
+
+            <!-- Timeline Point -->
+            <div class="relative flex items-center justify-center w-2/12">
+              <div class="w-4 h-4 rounded-full bg-pink-500 relative z-10"></div>
+            </div>
+
+            <div class="w-5/12 pl-8">
+              <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow duration-200">
+                <% if period.image_url %>
+                  <img src="<%= period.image_url %>" alt="<%= period.name %>" class="w-full h-48 object-cover rounded-lg mb-4">
+                <% end %>
+                <p class="text-sm text-gray-600 mb-4">
+                  <%= period.description %>
+                </p>
+                <div class="mt-4">
+                  <a href="/history/periods/<%= period.id %>" class="inline-flex items-center text-sm font-medium text-pink-600 hover:text-pink-500">
+                    Learn more
+                    <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Techniques Section -->
+  <div id="techniques" class="py-16">
+    <h2 class="text-3xl font-extrabold text-gray-900">
+      Historical Techniques
+    </h2>
+    <p class="mt-4 max-w-2xl text-xl text-gray-500">
+      Discover traditional embroidery techniques from around the world
+    </p>
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <% @techniques.each do |technique| %>
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <% if technique.image_url %>
+            <div class="aspect-w-3 aspect-h-2">
+              <img src="<%= technique.image_url %>" alt="<%= technique.name %>" class="object-cover">
+            </div>
+          <% end %>
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg font-medium text-gray-900">
+              <%= technique.name %>
+            </h3>
+            <p class="mt-1 text-sm text-gray-500">
+              Origin: <%= technique.origin %>
+            </p>
+            <p class="mt-2 text-sm text-gray-600">
+              <%= technique.description %>
+            </p>
+            <div class="mt-4">
+              <% if technique.difficulty_level %>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-<%= technique.difficulty_level == 'beginner' ? 'green' : (technique.difficulty_level == 'intermediate' ? 'yellow' : 'red') %>-100 text-<%= technique.difficulty_level == 'beginner' ? 'green' : (technique.difficulty_level == 'intermediate' ? 'yellow' : 'red') %>-800">
+                  <%= technique.difficulty_level.capitalize %>
+                </span>
+              <% end %>
+            </div>
+            <div class="mt-4">
+              <a href="/history/techniques/<%= technique.id %>" class="inline-flex items-center text-sm font-medium text-pink-600 hover:text-pink-500">
+                View details
+                <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+});
+</script>

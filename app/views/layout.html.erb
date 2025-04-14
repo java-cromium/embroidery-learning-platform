@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hojita de Agua Dulce®</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              olive: {
+                50: '#f9faf5',
+                100: '#f1f4e7',
+                200: '#e3e9cf',
+                300: '#ccd6ac',
+                400: '#b3bf84',
+                500: '#96a35f',
+                600: '#808000',
+                700: '#616126',
+                800: '#4d4d1f',
+                900: '#3d3d19',
+              },
+            },
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center space-x-2">
+                        <img src="/images/logo.svg" alt="Logo" class="h-8 w-8">
+                        <a href="/" class="text-xl font-bold text-green-800">Hojita de Agua Dulce®</a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-4">
+                        <a href="/about" class="py-4 px-2 text-gray-500 hover:text-olive-600 transition duration-300">About</a>
+                        <a href="/history" class="py-4 px-2 text-gray-500 hover:text-olive-600 transition duration-300">History</a>
+                        <a href="/gallery" class="py-4 px-2 text-gray-500 hover:text-olive-600 transition duration-300">Gallery</a>
+                        <a href="/courses" class="py-4 px-2 text-gray-500 hover:text-olive-600 transition duration-300">Courses</a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <% if logged_in? %>
+                        <a href="/logout" class="py-2 px-2 font-medium text-gray-500 rounded hover:bg-olive-600 hover:text-white transition duration-300">Logout</a>
+                    <% else %>
+                        <a href="/login" class="py-2 px-2 font-medium text-gray-500 rounded hover:bg-olive-600 hover:text-white transition duration-300">Log In</a>
+                        <a href="/signup" class="py-2 px-2 font-medium text-white bg-olive-600 rounded hover:bg-olive-500 transition duration-300">Sign Up</a>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <%= yield %>
+
+    </main>
+
+    <footer class="bg-white shadow-lg mt-12">
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-500">
+                    © <%= Time.now.year %> Hojita de Agua Dulce®. All rights reserved.
+
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

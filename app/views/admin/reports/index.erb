@@ -1,0 +1,140 @@
+<div class="space-y-6">
+  <!-- Revenue Chart -->
+  <div class="bg-white shadow rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Monthly Revenue</h3>
+      <div class="mt-4">
+        <canvas id="revenueChart" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Growth Chart -->
+  <div class="bg-white shadow rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">User Growth</h3>
+      <div class="mt-4">
+        <canvas id="userGrowthChart" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subscription Distribution -->
+  <div class="bg-white shadow rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Subscription Distribution</h3>
+      <div class="mt-4">
+        <canvas id="subscriptionDistributionChart" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+      type: 'line',
+      data: {
+        labels: <%= @revenue_by_month.keys.map { |date| date.strftime("%B %Y") }.to_json %>,
+        datasets: [{
+          label: 'Monthly Revenue ($)',
+          data: <%= @revenue_by_month.values.to_json %>,
+          borderColor: 'rgb(219, 39, 119)',
+          backgroundColor: 'rgba(219, 39, 119, 0.1)',
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Monthly Revenue'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return '$' + value.toFixed(2);
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // User Growth Chart
+    const userGrowthCtx = document.getElementById('userGrowthChart').getContext('2d');
+    new Chart(userGrowthCtx, {
+      type: 'line',
+      data: {
+        labels: <%= @users_by_month.keys.map { |date| date.strftime("%B %Y") }.to_json %>,
+        datasets: [{
+          label: 'New Users',
+          data: <%= @users_by_month.values.to_json %>,
+          borderColor: 'rgb(59, 130, 246)',
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'User Growth'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+
+    // Subscription Distribution Chart
+    const subscriptionDistributionCtx = document.getElementById('subscriptionDistributionChart').getContext('2d');
+    new Chart(subscriptionDistributionCtx, {
+      type: 'doughnut',
+      data: {
+        labels: <%= @subscriptions_by_plan.keys.to_json %>,
+        datasets: [{
+          data: <%= @subscriptions_by_plan.values.to_json %>,
+          backgroundColor: [
+            'rgb(219, 39, 119)',
+            'rgb(59, 130, 246)',
+            'rgb(16, 185, 129)',
+            'rgb(245, 158, 11)',
+            'rgb(139, 92, 246)'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Subscription Plan Distribution'
+          }
+        }
+      }
+    });
+  });
+</script>

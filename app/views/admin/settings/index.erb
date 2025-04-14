@@ -1,0 +1,172 @@
+<div class="space-y-6">
+  <!-- Platform Settings -->
+  <div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Platform Settings
+      </h3>
+      <div class="mt-2 max-w-xl text-sm text-gray-500">
+        <p>Configure your platform's general settings.</p>
+      </div>
+      <form class="mt-5 space-y-6" action="/admin/settings" method="post">
+        <div>
+          <label for="platform_name" class="block text-sm font-medium text-gray-700">
+            Platform Name
+          </label>
+          <div class="mt-1">
+            <input type="text" name="settings[platform_name]" id="platform_name" value="<%= settings.platform_name %>" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div>
+          <label for="contact_email" class="block text-sm font-medium text-gray-700">
+            Contact Email
+          </label>
+          <div class="mt-1">
+            <input type="email" name="settings[contact_email]" id="contact_email" value="<%= settings.contact_email %>" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div>
+          <label for="default_currency" class="block text-sm font-medium text-gray-700">
+            Default Currency
+          </label>
+          <div class="mt-1">
+            <select id="default_currency" name="settings[default_currency]" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm rounded-md">
+              <option value="USD" <%= settings.default_currency == 'USD' ? 'selected' : '' %>>USD ($)</option>
+              <option value="EUR" <%= settings.default_currency == 'EUR' ? 'selected' : '' %>>EUR (€)</option>
+              <option value="GBP" <%= settings.default_currency == 'GBP' ? 'selected' : '' %>>GBP (£)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-start">
+          <div class="flex items-center h-5">
+            <input id="enable_social_login" name="settings[enable_social_login]" type="checkbox" <%= settings.enable_social_login ? 'checked' : '' %> class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
+          </div>
+          <div class="ml-3 text-sm">
+            <label for="enable_social_login" class="font-medium text-gray-700">Enable Social Login</label>
+            <p class="text-gray-500">Allow users to sign in with social media accounts.</p>
+          </div>
+        </div>
+
+        <div>
+          <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+            Save Settings
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- API Keys -->
+  <div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        API Keys
+      </h3>
+      <div class="mt-2 max-w-xl text-sm text-gray-500">
+        <p>Manage your API keys for third-party integrations.</p>
+      </div>
+      <form class="mt-5 space-y-6" action="/admin/settings/api_keys" method="post">
+        <div>
+          <label for="stripe_public_key" class="block text-sm font-medium text-gray-700">
+            Stripe Public Key
+          </label>
+          <div class="mt-1">
+            <input type="text" name="settings[stripe_public_key]" id="stripe_public_key" value="<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div>
+          <label for="stripe_secret_key" class="block text-sm font-medium text-gray-700">
+            Stripe Secret Key
+          </label>
+          <div class="mt-1">
+            <input type="password" name="settings[stripe_secret_key]" id="stripe_secret_key" value="<%= ENV['STRIPE_SECRET_KEY'] %>" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div>
+          <label for="stripe_webhook_secret" class="block text-sm font-medium text-gray-700">
+            Stripe Webhook Secret
+          </label>
+          <div class="mt-1">
+            <input type="password" name="settings[stripe_webhook_secret]" id="stripe_webhook_secret" value="<%= ENV['STRIPE_WEBHOOK_SECRET'] %>" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div>
+          <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+            Update API Keys
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Email Settings -->
+  <div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Email Settings
+      </h3>
+      <div class="mt-2 max-w-xl text-sm text-gray-500">
+        <p>Configure your email notification settings.</p>
+      </div>
+      <form class="mt-5 space-y-6" action="/admin/settings/email" method="post">
+        <div>
+          <label for="smtp_host" class="block text-sm font-medium text-gray-700">
+            SMTP Host
+          </label>
+          <div class="mt-1">
+            <input type="text" name="settings[smtp_host]" id="smtp_host" value="<%= settings.smtp_host %>" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div>
+          <label for="smtp_port" class="block text-sm font-medium text-gray-700">
+            SMTP Port
+          </label>
+          <div class="mt-1">
+            <input type="number" name="settings[smtp_port]" id="smtp_port" value="<%= settings.smtp_port %>" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div>
+          <label for="smtp_username" class="block text-sm font-medium text-gray-700">
+            SMTP Username
+          </label>
+          <div class="mt-1">
+            <input type="text" name="settings[smtp_username]" id="smtp_username" value="<%= settings.smtp_username %>" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div>
+          <label for="smtp_password" class="block text-sm font-medium text-gray-700">
+            SMTP Password
+          </label>
+          <div class="mt-1">
+            <input type="password" name="settings[smtp_password]" id="smtp_password" value="<%= settings.smtp_password %>" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div class="flex items-start">
+          <div class="flex items-center h-5">
+            <input id="enable_welcome_email" name="settings[enable_welcome_email]" type="checkbox" <%= settings.enable_welcome_email ? 'checked' : '' %> class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
+          </div>
+          <div class="ml-3 text-sm">
+            <label for="enable_welcome_email" class="font-medium text-gray-700">Send Welcome Email</label>
+            <p class="text-gray-500">Send a welcome email to new users when they sign up.</p>
+          </div>
+        </div>
+
+        <div>
+          <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+            Save Email Settings
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

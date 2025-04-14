@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+ <rect width="200" height="200" fill="#f8f9fa"/>
+ <!-- Guide line -->
+ <path d="M40 100h120" fill="none" stroke="#e5e7eb" stroke-dasharray="4" stroke-width="1"/>
+ <!-- Running stitch -->
+ <g stroke="#4f772d" stroke-width="3">
+   <line x1="40" y1="100" x2="55" y2="100"/>
+   <line x1="70" y1="100" x2="85" y2="100"/>
+   <line x1="100" y1="100" x2="115" y2="100"/>
+   <line x1="130" y1="100" x2="145" y2="100"/>
+ </g>
+ <!-- Stitch points -->
+ <g fill="#4f772d">
+   <circle cx="40" cy="100" r="2"/>
+   <circle cx="55" cy="100" r="2"/>
+   <circle cx="70" cy="100" r="2"/>
+   <circle cx="85" cy="100" r="2"/>
+   <circle cx="100" cy="100" r="2"/>
+   <circle cx="115" cy="100" r="2"/>
+   <circle cx="130" cy="100" r="2"/>
+   <circle cx="145" cy="100" r="2"/>
+   <circle cx="160" cy="100" r="2"/>
+ </g>
+ <!-- Direction arrow -->
+ <g fill="none" stroke="#6b7280" stroke-width="1">
+   <path d="M95 90l10 0 l-4 -4 m4 4 l-4 4" />
+ </g>
+</svg>

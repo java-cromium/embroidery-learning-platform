@@ -1,0 +1,126 @@
+<div class="group relative bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-200">
+  <!-- Course Image -->
+  <div class="relative w-full h-48 rounded-t-lg overflow-hidden">
+    <img 
+      src="<%= course.cover_image_url %>" 
+      alt="<%= course.title %>"
+      class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-200"
+    >
+    <% if course.featured? %>
+      <div class="absolute top-0 right-0 mt-4 mr-4">
+        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-pink-100 text-pink-800">
+          Featured
+        </span>
+      </div>
+    <% end %>
+    <% if course.difficulty_level.present? %>
+      <div class="absolute bottom-0 left-0 mb-4 ml-4">
+        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium <%= difficulty_badge_color(course.difficulty_level) %>">
+          <%= course.difficulty_level.titleize %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Course Content -->
+  <div class="p-6">
+    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-pink-600 transition-colors duration-200">
+      <%= link_to course.title, course_path(course), class: "focus:outline-none" %>
+    </h3>
+    
+    <p class="mt-2 text-sm text-gray-500 line-clamp-2">
+      <%= course.description %>
+    </p>
+
+    <!-- Course Meta -->
+    <div class="mt-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <% if course.instructor.avatar_url.present? %>
+          <img 
+            class="h-8 w-8 rounded-full" 
+            src="<%= course.instructor.avatar_url %>" 
+            alt="<%= course.instructor.name %>"
+          >
+        <% end %>
+        <div class="ml-2">
+          <p class="text-sm font-medium text-gray-900">
+            <%= course.instructor.name %>
+          </p>
+          <p class="text-xs text-gray-500">
+            <%= pluralize(course.students_count, 'student') %>
+          </p>
+        </div>
+      </div>
+      
+      <div class="text-right">
+        <% if course.price > 0 %>
+          <p class="text-lg font-bold text-gray-900">
+            $<%= number_with_precision(course.price, precision: 2) %>
+          </p>
+        <% else %>
+          <p class="text-lg font-bold text-green-600">
+            Free
+          </p>
+        <% end %>
+        
+        <div class="mt-1 flex items-center">
+          <% course.rating.floor.times do %>
+            <svg class="h-4 w-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          <% end %>
+          <span class="ml-1 text-sm text-gray-500">
+            (<%= course.reviews_count %>)
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Bar (if enrolled) -->
+    <% if course.user_enrolled?(current_user) %>
+      <div class="mt-4">
+        <div class="relative pt-1">
+          <div class="flex mb-2 items-center justify-between">
+            <div>
+              <span class="text-xs font-semibold inline-block text-pink-600">
+                Progress
+              </span>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-semibold inline-block text-pink-600">
+                <%= course.user_progress(current_user) %>%
+              </span>
+            </div>
+          </div>
+          <div class="overflow-hidden h-2 text-xs flex rounded bg-pink-200">
+            <div
+              style="width: <%= course.user_progress(current_user) %>%"
+              class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500"
+            ></div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Action Button -->
+  <div class="px-6 py-4 border-t border-gray-100">
+    <% if course.user_enrolled?(current_user) %>
+      <%= link_to course_path(course), class: "w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500" do %>
+        <% if course.user_completed?(current_user) %>
+          Review Course
+        <% else %>
+          Continue Learning
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= button_to enroll_course_path(course), method: :post, class: "w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500" do %>
+        <% if course.price > 0 %>
+          Enroll for $<%= number_with_precision(course.price, precision: 2) %>
+        <% else %>
+          Enroll Now - Free
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
